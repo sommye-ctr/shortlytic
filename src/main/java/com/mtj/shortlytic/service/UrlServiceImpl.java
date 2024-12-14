@@ -1,6 +1,6 @@
 package com.mtj.shortlytic.service;
 
-import application.Constants;
+import com.mtj.shortlytic.application.Constants;
 import com.mtj.shortlytic.exception.ResourceNotFoundException;
 import com.mtj.shortlytic.models.Url;
 import com.mtj.shortlytic.payload.UrlRequest;
