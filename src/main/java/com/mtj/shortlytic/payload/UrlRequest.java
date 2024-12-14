@@ -1,4 +1,5 @@
 package com.mtj.shortlytic.payload;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,11 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UrlDTO {
-    private Integer id;
-
-    // public access ones
+public class UrlRequest {
     private String url;
-    private String shortCode;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    private String password;
+    private boolean passwordProtected;
+    private int expiresIn; // in hours
 }

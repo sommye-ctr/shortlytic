@@ -1,13 +1,12 @@
 package com.mtj.shortlytic.controller;
 
-import com.mtj.shortlytic.payload.UrlDTO;
+import com.mtj.shortlytic.payload.UrlRequest;
+import com.mtj.shortlytic.payload.UrlResponse;
 import com.mtj.shortlytic.service.UrlService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -17,8 +16,20 @@ public class UrlController {
     private UrlService urlService;
 
     @GetMapping("/{shortCode}")
-    public ResponseEntity<UrlDTO> getUrl(@PathVariable String shortCode) {
-        UrlDTO urlDTO = urlService.getUrlByShort(shortCode);
-        return ResponseEntity.ok(urlDTO);
+    public ResponseEntity<UrlResponse> getUrl(@PathVariable String shortCode) {
+        UrlResponse urlResponse = urlService.getUrlByShort(shortCode);
+        return ResponseEntity.ok(urlResponse);
+    }
+
+    @PostMapping()
+    public ResponseEntity<UrlResponse> shortenUrl(@Valid @RequestBody UrlRequest urlRequest) {
+        UrlResponse urlResponse = urlService.shortenUrl(urlRequest);
+        return ResponseEntity.ok(urlResponse);
+    }
+
+    @PutMapping("/{shortCode}")
+    public ResponseEntity<UrlResponse> updateUrl(@Valid @RequestBody UrlRequest urlRequest, @PathVariable String shortCode) {
+        UrlResponse urlResponse = urlService.updateUrl(shortCode, urlRequest);
+        return ResponseEntity.ok(urlResponse);
     }
 }

@@ -1,5 +1,6 @@
 package com.mtj.shortlytic.models;
 
+import com.mtj.shortlytic.payload.UrlRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -38,4 +39,12 @@ public class Url {
 
     @OneToMany(mappedBy = "url")
     private List<Analytics> analytics;
+
+    public void update(UrlRequest urlRequest){
+        url = urlRequest.getUrl() == null ? url : urlRequest.getUrl();
+        if (passwordProtected != urlRequest.isPasswordProtected()) {
+            passwordProtected = urlRequest.isPasswordProtected();
+            password = urlRequest.getPassword();
+        }
+    }
 }

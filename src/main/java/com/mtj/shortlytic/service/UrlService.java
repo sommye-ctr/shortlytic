@@ -1,9 +1,14 @@
 package com.mtj.shortlytic.service;
 
-import com.mtj.shortlytic.payload.UrlDTO;
+import com.mtj.shortlytic.payload.UrlRequest;
+import com.mtj.shortlytic.payload.UrlResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface UrlService {
-    UrlDTO getUrlByShort(String shortCode);
+    UrlResponse getUrlByShort(String shortCode);
+
+    UrlResponse shortenUrl(UrlRequest urlRequest);
+
+    UrlResponse updateUrl(String shortCode, UrlRequest urlRequest);
 }
