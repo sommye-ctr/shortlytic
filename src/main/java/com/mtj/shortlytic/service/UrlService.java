@@ -11,4 +11,6 @@ public interface UrlService {
     UrlResponse shortenUrl(UrlRequest urlRequest);
 
     UrlResponse updateUrl(String shortCode, UrlRequest urlRequest);
+
+    void deleteUrl(String shortCode);
 }

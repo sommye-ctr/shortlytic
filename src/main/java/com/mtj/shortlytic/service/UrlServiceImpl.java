@@ -56,4 +56,12 @@ public class UrlServiceImpl implements UrlService {
         url = urlRepository.save(url);
         return modelMapper.map(url, UrlResponse.class);
     }
+
+    @Override
+    public void deleteUrl(String shortCode) {
+        Url url = urlRepository.findByShortCode(shortCode)
+                .orElseThrow(() -> new ResourceNotFoundException("Url", shortCode));
+
+        urlRepository.delete(url);
+    }
 }

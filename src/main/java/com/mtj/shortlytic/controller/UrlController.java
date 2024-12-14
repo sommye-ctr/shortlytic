@@ -32,4 +32,10 @@ public class UrlController {
         UrlResponse urlResponse = urlService.updateUrl(shortCode, urlRequest);
         return ResponseEntity.ok(urlResponse);
     }
+
+    @DeleteMapping("/{shortCode}")
+    public ResponseEntity<String> deleteUrl(@PathVariable String shortCode) {
+        urlService.deleteUrl(shortCode);
+        return ResponseEntity.ok("Successfully deleted url");
+    }
 }
