@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "urls")
 public class Url {
     @Id
-    private Integer id;
+    private Long id;
 
     @NotNull @NotEmpty
     private String url;
