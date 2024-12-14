@@ -1,5 +1,6 @@
 package com.mtj.shortlytic.controller;
 
+import com.mtj.shortlytic.payload.DeviceTypeResponse;
 import com.mtj.shortlytic.payload.TopCountryResponse;
 import com.mtj.shortlytic.service.AnalyticsService;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,12 @@ public class AnalyticsController {
     public ResponseEntity<List<TopCountryResponse>> getTopCountries(@PathVariable Long urlId,
                                                                     @RequestParam(required = false, defaultValue = "5") int limit) {
         List<TopCountryResponse> list = analyticsService.getTopCountries(urlId, limit);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/device-type/{urlId}")
+    public ResponseEntity<List<DeviceTypeResponse>> getDeviceTypeCounts(@PathVariable long urlId) {
+        List<DeviceTypeResponse> list = analyticsService.getDeviceCounts(urlId);
         return ResponseEntity.ok(list);
     }
 }

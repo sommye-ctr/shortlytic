@@ -1,5 +1,6 @@
 package com.mtj.shortlytic.service;
 
+import com.mtj.shortlytic.payload.DeviceTypeResponse;
 import com.mtj.shortlytic.payload.TopCountryResponse;
 import com.mtj.shortlytic.repositories.AnalyticsRepository;
 import lombok.AllArgsConstructor;
@@ -19,5 +20,10 @@ public class AnalyticsServiceImpl implements AnalyticsService {
     @Override
     public List<TopCountryResponse> getTopCountries(Long urlId, int limit) {
         return analyticsRepository.getTopCountriesWithClickCount(urlId, limit);
+    }
+
+    @Override
+    public List<DeviceTypeResponse> getDeviceCounts(long urlId) {
+        return analyticsRepository.getDeviceTypesWithClickCount(urlId);
     }
 }
