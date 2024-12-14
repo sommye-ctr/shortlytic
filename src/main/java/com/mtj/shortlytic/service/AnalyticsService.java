@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface AnalyticsService {
 
-    long getTotalCount(String shortCode);
+    long getTotalCount(long urlId);
 
     List<TopCountryResponse> getTopCountries(Long urlId, int limit);
 }

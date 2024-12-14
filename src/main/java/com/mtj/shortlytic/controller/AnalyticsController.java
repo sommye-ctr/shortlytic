@@ -15,9 +15,9 @@ import java.util.List;
 public class AnalyticsController {
     private AnalyticsService analyticsService;
 
-    @GetMapping("/click-count/{shortCode}")
-    public ResponseEntity<Long> getTotalCount(@PathVariable String shortCode){
-       long count =  analyticsService.getTotalCount(shortCode);
+    @GetMapping("/click-count/{urlId}")
+    public ResponseEntity<Long> getTotalCount(@PathVariable long urlId){
+       long count =  analyticsService.getTotalCount(urlId);
        return ResponseEntity.ok(count);
     }
 
@@ -27,6 +27,4 @@ public class AnalyticsController {
         List<TopCountryResponse> list = analyticsService.getTopCountries(urlId, limit);
         return ResponseEntity.ok(list);
     }
-
-
 }

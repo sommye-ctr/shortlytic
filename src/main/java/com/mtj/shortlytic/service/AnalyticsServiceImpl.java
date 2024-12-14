@@ -12,8 +12,8 @@ public class AnalyticsServiceImpl implements AnalyticsService {
     private AnalyticsRepository analyticsRepository;
 
     @Override
-    public long getTotalCount(String shortCode) {
-       return analyticsRepository.count();
+    public long getTotalCount(long urlId) {
+        return analyticsRepository.countByUrlId(urlId);
     }
 
     @Override
