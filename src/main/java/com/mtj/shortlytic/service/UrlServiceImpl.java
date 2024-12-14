@@ -1,5 +1,6 @@
 package com.mtj.shortlytic.service;
 
+import application.Constants;
 import com.mtj.shortlytic.exception.ResourceNotFoundException;
 import com.mtj.shortlytic.models.Url;
 import com.mtj.shortlytic.payload.UrlRequest;
@@ -38,11 +39,11 @@ public class UrlServiceImpl implements UrlService {
             OffsetDateTime dateTime = OffsetDateTime.now().plusHours(urlRequest.getExpiresIn());
             url.setExpiryAt(dateTime);
         }
+        url.setShortCode(urlRepository.generateUniqueShortCode(Constants.SHORT_CODE_LENGTH));
 
         url = urlRepository.save(url);
 
         //todo set user
-        // todo generate shortCode
         return modelMapper.map(url, UrlResponse.class);
     }
 
