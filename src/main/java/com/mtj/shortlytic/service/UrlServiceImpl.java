@@ -72,7 +72,7 @@ public class UrlServiceImpl implements UrlService {
         Url url = urlRepository.findByShortCode(shortCode)
                 .orElseThrow(() -> new ResourceNotFoundException("Url", shortCode));
 
-        url.update(urlRequest);
+        url.update(urlRequest, passwordEncoder);
         url = urlRepository.save(url);
         return modelMapper.map(url, UrlResponse.class);
     }

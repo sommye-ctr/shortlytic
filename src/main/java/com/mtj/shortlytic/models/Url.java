@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -45,11 +46,11 @@ public class Url {
     @OneToMany(mappedBy = "url")
     private List<Analytics> analytics;
 
-    public void update(UrlRequest urlRequest){
+    public void update(UrlRequest urlRequest, PasswordEncoder passwordEncoder){
         url = urlRequest.getUrl() == null ? url : urlRequest.getUrl();
         if (passwordProtected != urlRequest.isPasswordProtected()) {
             passwordProtected = urlRequest.isPasswordProtected();
-            password = urlRequest.getPassword();
+            password = passwordEncoder.encode(urlRequest.getPassword());
         }
     }
 }
