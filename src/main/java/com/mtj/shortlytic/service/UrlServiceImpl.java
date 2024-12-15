@@ -40,6 +40,8 @@ public class UrlServiceImpl implements UrlService {
             }
         }
 
+        // todo add click event here with required details
+
         return modelMapper.map(url, UrlResponse.class);
     }
 
