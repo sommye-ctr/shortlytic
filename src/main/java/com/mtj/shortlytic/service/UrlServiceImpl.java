@@ -10,6 +10,7 @@ import com.mtj.shortlytic.repositories.UrlRepository;
 import com.mtj.shortlytic.utils.AuthUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,7 @@ public class UrlServiceImpl implements UrlService {
         return modelMapper.map(url, UrlResponse.class);
     }
 
+    @PreAuthorize("@authUtils.canAccessUrl(#shortCode)")
     @Override
     public UrlResponse updateUrl(String shortCode, UrlRequest urlRequest) {
         Url url = urlRepository.findByShortCode(shortCode)
@@ -66,6 +68,7 @@ public class UrlServiceImpl implements UrlService {
         return modelMapper.map(url, UrlResponse.class);
     }
 
+    @PreAuthorize("@authUtils.canAccessUrl(#shortCode)")
     @Override
     public void deleteUrl(String shortCode) {
         Url url = urlRepository.findByShortCode(shortCode)
