@@ -34,4 +34,14 @@ public class AuthUtils {
         Optional<Url> o = urlRepository.findByShortCodeAndUserId(shortCode, currentUser.getId());
         return o.isPresent();
     }
+
+    public boolean canAccessAnalytics(long urlId) {
+        User currentUser = getCurrentUser();
+        if (currentUser == null) {
+            return false;
+        }
+
+        Optional<Url> o = urlRepository.findById(urlId);
+        return o.isPresent();
+    }
 }
