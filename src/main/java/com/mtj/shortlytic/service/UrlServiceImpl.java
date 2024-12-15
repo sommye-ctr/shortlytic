@@ -30,7 +30,7 @@ public class UrlServiceImpl implements UrlService {
         Url url = urlRepository.findByShortCode(shortCode)
                 .orElseThrow(() -> new ResourceNotFoundException("Url", shortCode));
 
-        if (url.getExpiryAt().isBefore(OffsetDateTime.now())) {
+        if (url.getExpiryAt() != null && url.getExpiryAt().isBefore(OffsetDateTime.now())){
             throw new UrlExpiredException(shortCode, url.getExpiryAt());
         }
 
