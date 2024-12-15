@@ -8,6 +8,7 @@ import com.mtj.shortlytic.payload.UrlResponse;
 import com.mtj.shortlytic.repositories.UrlRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -16,6 +17,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 public class UrlServiceImpl implements UrlService {
 
+    private final PasswordEncoder passwordEncoder;
     private UrlRepository urlRepository;
     private ModelMapper modelMapper;
 
@@ -34,7 +36,7 @@ public class UrlServiceImpl implements UrlService {
 
         url.setPasswordProtected(urlRequest.isPasswordProtected());
         if (urlRequest.isPasswordProtected()) {
-            url.setPassword(urlRequest.getPassword()); //todo encode this password
+            url.setPassword(passwordEncoder.encode(urlRequest.getPassword()));
         }
 
         if (urlRequest.getExpiresIn() != 0) {
