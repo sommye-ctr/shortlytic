@@ -1,16 +1,16 @@
 package com.mtj.shortlytic.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,6 +27,7 @@ import java.util.UUID;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotEmpty @NotNull
@@ -44,7 +45,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Url> urls = new ArrayList<>();
 
+    @CreationTimestamp
     private OffsetDateTime createdAt;
+    @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
     @Override
