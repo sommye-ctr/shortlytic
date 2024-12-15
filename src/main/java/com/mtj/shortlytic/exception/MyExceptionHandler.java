@@ -45,4 +45,12 @@ public class MyExceptionHandler {
         resp.put("status", HttpStatus.NOT_FOUND.value());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resp);
     }
+
+    @ExceptionHandler(UrlExpiredException.class)
+    public ResponseEntity<Map<?, ?>> handle(UrlExpiredException ex) {
+        HashMap<Object, Object> resp = new HashMap<>();
+        resp.put("message", ex.getMessage());
+        resp.put("status", HttpStatus.GONE.value());
+        return ResponseEntity.status(HttpStatus.GONE).body(resp);
+    }
 }

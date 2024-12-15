@@ -2,6 +2,7 @@ package com.mtj.shortlytic.service;
 
 import com.mtj.shortlytic.application.Constants;
 import com.mtj.shortlytic.exception.ResourceNotFoundException;
+import com.mtj.shortlytic.exception.UrlExpiredException;
 import com.mtj.shortlytic.models.Url;
 import com.mtj.shortlytic.payload.UrlRequest;
 import com.mtj.shortlytic.payload.UrlResponse;
@@ -26,6 +27,10 @@ public class UrlServiceImpl implements UrlService {
     public UrlResponse getUrlByShort(String shortCode) {
         Url url = urlRepository.findByShortCode(shortCode)
                 .orElseThrow(() -> new ResourceNotFoundException("Url", shortCode));
+
+        if (url.getExpiryAt().isBefore(OffsetDateTime.now())) {
+            throw new UrlExpiredException(shortCode, url.getExpiryAt());
+        }
 
         return modelMapper.map(url, UrlResponse.class);
     }
