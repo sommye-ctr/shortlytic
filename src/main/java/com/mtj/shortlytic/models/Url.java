@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 @Table(name = "urls")
 public class Url {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull @NotEmpty
@@ -29,7 +32,9 @@ public class Url {
     private boolean passwordProtected = false;
     private String password;
 
+    @CreationTimestamp
     private OffsetDateTime createdAt;
+    @UpdateTimestamp
     private OffsetDateTime updatedAt;
     private OffsetDateTime expiryAt;
 
