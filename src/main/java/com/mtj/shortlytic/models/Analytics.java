@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 @Table(name = "analytics")
 public class Analytics {
     @Id
-    private Long id;
+    private Integer id;
 
     private OffsetDateTime clickedAt;
     private String deviceType;

@@ -8,9 +8,11 @@ import com.mtj.shortlytic.payload.UrlResponse;
 import com.mtj.shortlytic.repositories.UrlRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 
+@Service
 @AllArgsConstructor
 public class UrlServiceImpl implements UrlService {
 

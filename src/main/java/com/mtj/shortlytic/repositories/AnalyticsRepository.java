@@ -5,9 +5,11 @@ import com.mtj.shortlytic.payload.DeviceTypeResponse;
 import com.mtj.shortlytic.payload.TopCountryResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AnalyticsRepository extends JpaRepository<Analytics, Long> {
     @Query("SELECT a.country, COUNT(*) FROM Analytics a WHERE  a.url = ?1 GROUP BY a.country ORDER BY COUNT(*) DESC LIMIT ?2")
     List<TopCountryResponse> getTopCountriesWithClickCount(Long urlId, int limit);
