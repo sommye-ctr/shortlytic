@@ -6,6 +6,7 @@ import com.mtj.shortlytic.models.Url;
 import com.mtj.shortlytic.payload.UrlRequest;
 import com.mtj.shortlytic.payload.UrlResponse;
 import com.mtj.shortlytic.repositories.UrlRepository;
+import com.mtj.shortlytic.utils.AuthUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,10 +45,9 @@ public class UrlServiceImpl implements UrlService {
             url.setExpiryAt(dateTime);
         }
         url.setShortCode(urlRepository.generateUniqueShortCode(Constants.SHORT_CODE_LENGTH));
-
+        url.setUser(AuthUtils.getCurrentUser());
         url = urlRepository.save(url);
 
-        //todo set user
         return modelMapper.map(url, UrlResponse.class);
     }
 
