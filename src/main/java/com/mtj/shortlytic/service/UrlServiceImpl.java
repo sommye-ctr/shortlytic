@@ -1,6 +1,7 @@
 package com.mtj.shortlytic.service;
 
 import com.mtj.shortlytic.application.Constants;
+import com.mtj.shortlytic.exception.PermissionDeniedException;
 import com.mtj.shortlytic.exception.ResourceNotFoundException;
 import com.mtj.shortlytic.exception.UrlExpiredException;
 import com.mtj.shortlytic.models.Url;
@@ -25,12 +26,18 @@ public class UrlServiceImpl implements UrlService {
     private ModelMapper modelMapper;
 
     @Override
-    public UrlResponse getUrlByShort(String shortCode) {
+    public UrlResponse getUrlByShort(String shortCode, String password) {
         Url url = urlRepository.findByShortCode(shortCode)
                 .orElseThrow(() -> new ResourceNotFoundException("Url", shortCode));
 
         if (url.getExpiryAt().isBefore(OffsetDateTime.now())) {
             throw new UrlExpiredException(shortCode, url.getExpiryAt());
+        }
+
+        if (url.isPasswordProtected()) {
+            if (password == null || password.isEmpty() || !passwordEncoder.matches(password, url.getPassword())) {
+                throw new PermissionDeniedException();
+            }
         }
 
         return modelMapper.map(url, UrlResponse.class);

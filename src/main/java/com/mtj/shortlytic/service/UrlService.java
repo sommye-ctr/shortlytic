@@ -4,7 +4,7 @@ import com.mtj.shortlytic.payload.UrlRequest;
 import com.mtj.shortlytic.payload.UrlResponse;
 
 public interface UrlService {
-    UrlResponse getUrlByShort(String shortCode);
+    UrlResponse getUrlByShort(String shortCode, String password);
 
     UrlResponse shortenUrl(UrlRequest urlRequest);
 

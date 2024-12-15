@@ -16,8 +16,9 @@ public class UrlController {
     private UrlService urlService;
 
     @GetMapping("/{shortCode}")
-    public ResponseEntity<UrlResponse> getUrl(@PathVariable String shortCode) {
-        UrlResponse urlResponse = urlService.getUrlByShort(shortCode);
+    public ResponseEntity<UrlResponse> getUrl(@PathVariable String shortCode,
+                                              @RequestParam(required = false) String password) {
+        UrlResponse urlResponse = urlService.getUrlByShort(shortCode, password);
         return ResponseEntity.ok(urlResponse);
     }
 

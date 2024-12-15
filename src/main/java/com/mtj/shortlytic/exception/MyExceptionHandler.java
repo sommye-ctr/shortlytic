@@ -53,4 +53,12 @@ public class MyExceptionHandler {
         resp.put("status", HttpStatus.GONE.value());
         return ResponseEntity.status(HttpStatus.GONE).body(resp);
     }
+
+    @ExceptionHandler(PermissionDeniedException.class)
+    public ResponseEntity<Map<?, ?>> handle(PermissionDeniedException ex) {
+        HashMap<Object, Object> resp = new HashMap<>();
+        resp.put("message", ex.getMessage() == null ? "Permission Denied for the resource!" : ex.getMessage());
+        resp.put("status", HttpStatus.FORBIDDEN.value());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(resp);
+    }
 }
