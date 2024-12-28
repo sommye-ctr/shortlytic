@@ -1,3 +1,6 @@
+![Shortlytic Logo](./icon.webp)
+
+---
 
 # Shortlytic
 
